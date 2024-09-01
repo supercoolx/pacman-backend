@@ -1,9 +1,10 @@
 const User = require('../models/User');
+const Pay = require('../models/Pay');
 
 module.exports.SaveScore = async (req, res) => {
 	console.log("requestData:::", req.body);
 
-	const { username, wins, scores } = req.body;
+	const { username, wins, scores, wallet } = req.body;
 
 	const user = await User.findOne({ username: username });
 
@@ -12,7 +13,8 @@ module.exports.SaveScore = async (req, res) => {
 			username: username,
 			winds: wins ? 1 : 0,
 			losses: wins ? 0 : 1,
-			scores: scores
+			scores: scores,
+			wallet: wallet
 		});
 		await newUser.save().then(user => {
 			return res.status(200).send({ user });
@@ -26,6 +28,7 @@ module.exports.SaveScore = async (req, res) => {
 		if (wins === true) user.wins++;
 		if (wins === false) user.losses++;
 		user.scores += scores;
+		user.wallet = wallet;
 
 		user.updatedAt = new Date();
 		await user.save().then(data => {
@@ -64,3 +67,10 @@ module.exports.FetchAllScore = async (req, res) => {
 	});
 
 }
+
+module.exports.getWinnerAddress = () => User.findOne({})
+	.sort({ scores: -1 }) // Sort by `score` in descending order
+	.exec().then(user => user?.wallet)
+	.catch(console.log);
+
+module.exports.resetScore = () => User.deleteMany().exec().then(() => console.log('Score reseted.')).catch(console.log);
