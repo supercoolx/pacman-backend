@@ -1,3 +1,6 @@
-const MONGODB_URI = "mongodb+srv://vipcharisso24:r4AHxQz8T1uQJ9mr@cluster0.jrjae7r.mongodb.net/pacman";
+require('dotenv').config();
 
-module.exports = { MONGODB_URI};
+const { MONGODB_URI } = process.env;
+// const MONGODB_URI = "mongodb://localhost:27017/pacman";
+
+module.exports = { MONGODB_URI };
