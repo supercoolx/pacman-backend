@@ -87,7 +87,7 @@ const bot = new Bot(botToken);
 
 bot.command('start', async (ctx) => {
 	const keyboard = new InlineKeyboard()
-		.webApp('Play Game', 'https://pacman-mini-app.vercel.app/')
+		.webApp('Play Game', 'https://pacman-b36f9.web.app')
 		.row()
 		.text('About', 'about')
 		.row()
