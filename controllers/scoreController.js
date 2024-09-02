@@ -4,12 +4,13 @@ const Pay = require('../models/Pay');
 module.exports.SaveScore = async (req, res) => {
 	console.log("requestData:::", req.body);
 
-	const { username, wins, scores, wallet } = req.body;
+	const { tgId, username, wins, scores, wallet } = req.body;
 
 	const user = await User.findOne({ username: username });
 
 	if (!user) {
 		const newUser = new User({
+			tgId: tgId,
 			username: username,
 			winds: wins ? 1 : 0,
 			losses: wins ? 0 : 1,

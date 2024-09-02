@@ -70,8 +70,6 @@ const sendPrizeToWinner = async () => {
 	}
 }
 
-sendPrizeToWinner();
-
 cron.schedule('0 0 */2 * *', sendPrizeToWinner, {
 	scheduled: true,
 	timezone: "America/New_York"
